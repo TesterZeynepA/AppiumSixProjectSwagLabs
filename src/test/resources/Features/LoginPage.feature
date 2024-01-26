@@ -1,26 +1,65 @@
-@GenderPage
+@LoginPage
 
-Feature: Gender Page Feature
-  @Check
-  Scenario: Gender Page Test Case 1
-    Given user is on the Gender Page
-    Then should see Image on Gender Page
-    Then should see Close Button on Gender Page
-    Then should see Erkek Button: "ERKEK" on Gender Page
-    Then should see Kadin Button: "KADIN" on Gender Page
-    Then should see Text: "Sana en uygun ürünleri sunabilmemiz için bize yardımcı olur musun?" on Gender Page
+Feature: Login Page Feature
+  @CheckComponents
+  Scenario: Check Components
+    Given user is on the Login Page
+    Then should see Icon on
+    Then should see Logo on
+    Then should see UsernameBox: "Username"
+    Then should see PasswordBox: "Password"
+    Then should see LoginButton: "LOGIN"
 
-  Scenario: Check Erkek Button Navigate to Offer Page
-    Given user is on the Gender Page
-    When click Erkek Button on Gender Page
-    Then should see Offer Page
+  @LoginHappyPath
 
-  Scenario: Check Kadin Button Navigate to Offer Page
-    Given user is on the Gender Page
-    When click Kadin Button on Gender Page
-    Then should see Offer Page
+  Scenario: Happy Path
+    Given user is on the Login Page
+    When sendkeys Username: "standard_user"
+    When sendkeys Password: "secret_sauce"
+    When click Login Button
+    Then should see Home Page
 
-  Scenario: Check Close Button Navigate to Offer Page
-    Given user is on the Gender Page
-    When click Close Button on Gender Page
-    Then should see Offer Page
+
+  @LoginNegative
+  Scenario: Empty UsernameBox
+    Given user is on the Login Page
+    When sendkeys Password: "secret_sauce"
+    When click Login Button
+    Then should see Username Error Message: "Username is required"
+
+  @LoginNegative
+  Scenario: Empty PasswordBox
+    Given user is on the Login Page
+    When sendkeys Username: "standard_user"
+    When click Login Button
+    Then should see Password Error Message: "Password is required"
+
+  @LoginNegative
+  Scenario: Invalid Username
+    Given user is on the Login Page
+    When sendkeys Username: "standarduser"
+    When sendkeys Password: "secret_sauce"
+    When click Login Button
+    Then should see Error Message Genel: "Username and password do not match any user in this service."
+
+  @LoginNegative
+  Scenario: Invalid Password
+    Given user is on the Login Page
+    When sendkeys Username: "standard_user"
+    When sendkeys Password: "secretsauce"
+    When click Login Button
+    Then should see Error Message Genel: "Username and password do not match any user in this service."
+
+  @LoginNegative
+  Scenario: Invalid Credentials
+    Given user is on the Login Page
+    When sendkeys Username: "standarduser"
+    When sendkeys Password: "secretsauce"
+    When click Login Button
+    Then should see Error Message Genel: "Username and password do not match any user in this service."
+
+  @LoginNegative
+  Scenario: Empty Credentials
+    Given user is on the Login Page
+    When click Login Button
+    Then should see Username Error Message: "Username is required"
