@@ -15,13 +15,13 @@ public class LoginPage {
     }
 
     By swagLogo = By.xpath("(//android.view.ViewGroup/android.widget.ImageView)[1]");
-    By icon = By.xpath("");
-    By usernameBox = By.xpath("");
-    By passwordBox = By.xpath("");
-    By loginButton = By.xpath("");
-    By errorMessageUsername = By.xpath("");
-    By errorMessagePassword = By.xpath("");
-    By errorMessageGenel = By.xpath("");
+    By icon = By.xpath("(//android.view.ViewGroup/android.widget.ImageView)[2]");
+    By usernameBox = By.xpath("//android.widget.EditText[@text='Username']");
+    By passwordBox = By.xpath("//android.widget.EditText[@text='Password']");
+    By loginButton = By.xpath("//android.widget.TextView[@text='LOGIN']");
+    By errorMessageUsername = By.xpath("//android.widget.TextView[@text='Username is required']");
+    By errorMessagePassword = By.xpath("//android.widget.TextView[@text='Password is required']");
+    By errorMessageGenel = By.xpath("//android.widget.TextView[@text='Username and password do not match any user in this service.']");
 
     public void checkLoginPage(){
         methods.checkElement(swagLogo);
@@ -43,6 +43,7 @@ public class LoginPage {
     }
 
     public void checkLoginButtonText(String expectedText){
+        driver.findElement(loginButton).getText();
         Assert.assertEquals(methods.getText(loginButton), expectedText);
     }
 
@@ -52,6 +53,7 @@ public class LoginPage {
 
     public void inputUsername(String expectedText){
         methods.sendKeys(usernameBox, expectedText);
+        methods.click(passwordBox);
     }
 
     public void checkErrorMessagePassword(String expectedText){
@@ -59,7 +61,7 @@ public class LoginPage {
     }
 
     public void inputPassword(String expectedText){
-        Assert.assertEquals(methods.getText(passwordBox), expectedText);
+        methods.sendKeys(passwordBox, expectedText);
     }
 
     public void clickLoginButton(){

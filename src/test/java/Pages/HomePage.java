@@ -13,7 +13,7 @@ public class HomePage {
         methods = new ReusableMethods(driver);
     }
 
-    By productsText = By.xpath("");
+    By productsText = By.xpath("//android.widget.TextView[@text='PRODUCTS']");
 
     public void checkHomePage(){
 

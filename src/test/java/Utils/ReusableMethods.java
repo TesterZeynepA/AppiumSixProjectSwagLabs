@@ -23,7 +23,7 @@ public class ReusableMethods {
     WebDriverWait wait;
     public ReusableMethods(AndroidDriver androidDriver) {
         driver = androidDriver;
-        wait = new WebDriverWait(androidDriver, Duration.ofSeconds(10));
+        wait = new WebDriverWait(androidDriver, Duration.ofSeconds(15));
     }
 
     public WebElement findElement(By by) {
@@ -43,6 +43,7 @@ public class ReusableMethods {
 
     public void sendKeys(By by, String text) {
         WebElement element = findElement(by);
+        wait.until(ExpectedConditions.visibilityOf(element)).click();
         wait.until(ExpectedConditions.visibilityOf(element)).sendKeys(text);
     }
 
